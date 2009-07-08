@@ -3,6 +3,12 @@ void setup(){
 int path[];
 int p_index=0;
 int state=0;
+int x_accel; //as measured in ?? /s^2
+int y_accel; //as measured in ?? /s^2
+int x_veloc; //as measured in ?? /s
+int y_veloc; //as measured in ?? /s
+int x_pos;
+int y_pos;
 const int cuttingRadius = 8; //cutting radius in inches(?)
 //int room[] to be defined later
 /* End External variables*/
@@ -36,6 +42,13 @@ void loop(){
   state=-1
   edging();
 }
+////////////////////////
+//END OF MAIN METHODS
+////////////////////////
+
+////////////////////////
+//BEGIN SUB-METHODS NOW
+////////////////////////
 
 void vectorizePath(){
 /*
@@ -157,7 +170,31 @@ void populateRoom(){
   }
 } //end populateRoom()
 
-////////////////////////////////////
+///////////////////////////////
+// Start of mid-level methods
+///////////////////////////////
+
+void updatePosition(){
+/*
+* UpdatePosition: This method queries all of the requisite sensors to determine the current position of the
+*  robot.  Ideally, this piece of code should be run whenever the robot is mobile several tens of times per
+*  second.  This method should be hyper-optimized to obtain the best possible accuracy and efficiency,
+*  if not completely offloaded onto a separate processor.
+*/
+  const int interval = 0.1; //time in s between readings
+  int old_x_accel = x_accel;
+  x_accel=getXAccel();
+  x_pos = ((x_accel-old_x_accel)/6)*interval*interval+(x_veloc)*interval+x_pos;  //I think this formula should work for getting position
+  x_veloc = ((x_accel-old_x_accel)/2)*interval+x_veloc;
+  int old_y_accel = y_accel;
+  y_accel=getYAccel();  //These two methods are subject to change, as they have not been written yet
+  y_pos = ((y_accel-old_y_accel)/6)*interval*interval+(y_veloc)*interval+y_pos;  //I think this formula should work for getting position
+  y_veloc = ((y_accel-old_y_accel)/2)*interval+y_veloc;
+}
+
+
+
+///////////////////////////////////
 // Start of loop methods
 ///////////////////////////////////
 
