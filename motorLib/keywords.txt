@@ -1,0 +1,5 @@
+motorLib	KEYWORD1
+readL	KEYWORD2
+readR	KEYWORD2
+writeL	KEYWORD2
+writeR	KEYWORD2

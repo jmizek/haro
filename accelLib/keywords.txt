@@ -1,0 +1,3 @@
+accelLib	KEYWORD1
+readX	KEYWORD2
+readY	KEYWORD2
