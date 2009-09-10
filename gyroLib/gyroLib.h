@@ -7,7 +7,7 @@ class gyroLib
 {
  public:
   gyroLib(int pin);
-  int read();
+  int readG();
  private:
   int _pin;
 };

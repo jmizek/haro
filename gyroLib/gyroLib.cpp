@@ -7,7 +7,7 @@ gyroLib::gyroLib(int pin)
   _pin = pin;
 }
 
-int gyroLib::read()
+int gyroLib::readG()
 {
    return map(analogRead(_pin), 0, 620, -360, 360);
 }
