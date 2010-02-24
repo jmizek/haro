@@ -5,7 +5,7 @@
 #define l_stop 1503
 #define l_reverse 1000
 #define r_forward 1000
-#define r_stop 1511
+#define r_stop 1520
 #define r_reverse 2022
 
 // Digital pins reserved for button pad
@@ -39,13 +39,13 @@ void loop()
       break;
     }
     case '4': {
-      l_speed = 100;
-      r_speed = -100;
+      l_speed = -100;
+      r_speed = 100;
       break;
     }
     case '6': {
-      l_speed = -100;
-      r_speed = 100;
+      l_speed = 100;
+      r_speed = -100;
       break;
     }
     case '8': {
@@ -58,8 +58,14 @@ void loop()
       r_speed = 0;
     }
   }
-  l_go=map(l_speed, -100, 100, l_reverse, l_forward);
-  r_go=map(r_speed, -100, 100, r_reverse, r_forward);
+  if (l_speed != 0) 
+    l_go=map(l_speed, -100, 100, l_reverse, l_forward);
+  else
+    l_go=l_stop;
+  if (r_speed != 0) 
+    r_go=map(r_speed, -100, 100, r_reverse, r_forward);
+  else
+    r_go=r_stop;
   servoLeft.write(l_go);
   servoRight.write(r_go);
 }
